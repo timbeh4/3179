@@ -68,7 +68,7 @@
               "tooltip": [
           {"field": "State", "type": "nominal"},
           {"field": "arrivals", "type": "quantitative", "title":"Overseas Arrivals"},
-          {"field": "Year", "type": "ordinal"}
+          {"field": "Year", "type": "ordinal", "title": "Month and Year"}
         ]
         }
       }
