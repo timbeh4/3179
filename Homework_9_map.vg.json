@@ -11,14 +11,7 @@
           "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/datasource/ne_50m.json",
           "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
         },
-        "mark": {"type": "geoshape", "fill": "lightgreen", "stroke": "black"}
-      },
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/datasource/ne_50m.json",
-          "format": {"type": "topojson", "feature": "ne_50m_ocean"}
-        },
-        "mark": {"type": "geoshape", "fill": "#1f77b4"}
+        "mark": {"type": "geoshape", "fill": "beige", "stroke": "black"}
       },
       {
         "data": {
