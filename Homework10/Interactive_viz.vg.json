@@ -1,0 +1,60 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "Homework10/datasource/Combined_arrival_depart.csv",
+      "format": {"type": "csv"}
+    },
+    "transform": [
+      {
+            "filter": "datum.Month === 'Jan-18'"  
+      },
+      {
+        "fold": [
+          "Arrivals_NSW", "Arrivals_VIC", "Arrivals_QLD", "Arrivals_SA", "Arrivals_WA", "Arrivals_TAS", "Arrivals_NT", "Arrivals_ACT", "Arrivals_All_States",
+          "Departures_NSW", "Departures_VIC", "Departures_QLD", "Departures_SA", "Departures_WA", "Departures_TAS", "Departures_NT", "Departures_ACT", "Departures_All_States"
+        ],
+        "as": ["Category", "Value"]
+      },
+      {
+        "calculate": "split(datum.Category, '_')[0]", 
+        "as": "Type"
+      },
+      {
+        "calculate": "split(datum.Category, '_')[1]", 
+        "as": "State"
+      },
+      {
+        "calculate": "datum.Type === 'departures' ? -datum.Value : datum.Value",
+        "as": "AdjustedValue"
+      }
+    ],
+    "mark": "bar",
+    "encoding": {
+      "y": {
+        "field": "State",
+        "type": "ordinal",
+        "axis": {
+          "title": "States"
+        }
+      },
+      "x": {
+        "field": "AdjustedValue",
+        "type": "quantitative",
+        "axis": {
+          "title": "Number of People"
+        }
+      },
+      "color": {
+        "field": "Type",
+        "type": "nominal",
+        "scale": {
+          "domain": ["arrivals", "departures"],
+          "range": ["#1f77b4", "#d62728"]
+        },
+        "legend": {
+          "title": "Type"
+        }
+      }
+    }
+  }
+  
