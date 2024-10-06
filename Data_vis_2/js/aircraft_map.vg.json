@@ -1,0 +1,83 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 800,
+    "height": 450,
+    "title": "Inbound International Airline Arrivals within Australia",
+    "projection": {"type": "mercator"},
+
+    "layer": [
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/ne_50m.json",
+          "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
+        },
+        "mark": {"type": "geoshape", "fill": "beige", "stroke": "black"}
+      },
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/Aicraft_Data.csv"
+        },
+ 
+        "transform": [
+          {"filter" : "datum.Year === '2024'"},
+          {
+            "fold": ["Adelaide_SA", "Brisbane_QLD", "Cairns_QLD", "Canberra_ACT", "Darwin_NT", "Gold_Coast_QLD", "Hobart_TAS", "Melbourne_VIC", "Newcastle_NSW", "Perth_WA", "Port_Hedland_WA", "Sunshine_Coast_QLD", "Sydney_NSW", "Toowoomba_Wellcamp_QLD", "Townsville_QLD"],
+            "as": ["Airport", "Arrivals"]
+          },
+          {
+            "calculate": "split(datum.Airport, '_')[0]", 
+            "as": "City"
+          },
+          {
+            "calculate": "split(datum.Airport, '_')[1]", 
+            "as": "State"
+          },
+          {
+            "lookup": "City",
+            "from": {
+              "data": {
+                "values": [
+                    {"Airport": "Adelaide", "lat": -34.9285, "lon": 138.6007},
+                    {"Airport": "Brisbane", "lat": -27.4698, "lon": 153.0251},
+                    {"Airport": "Cairns", "lat": -16.9186, "lon": 145.7781},
+                    {"Airport": "Canberra", "lat": -35.2809, "lon": 149.1300},
+                    {"Airport": "Darwin", "lat": -12.4634, "lon": 130.8456},
+                    {"Airport": "Gold", "lat": -28.0167, "lon": 153.4000},
+                    {"Airport": "Hobart", "lat": -42.8821, "lon": 147.3272},
+                    {"Airport": "Melbourne", "lat": -37.8136, "lon": 144.9631},
+                    {"Airport": "Newcastle", "lat": -32.9283, "lon": 151.7817},
+                    {"Airport": "Perth", "lat": -31.9505, "lon": 115.8605},
+                    {"Airport": "Port", "lat": -20.3104, "lon": 118.6010},
+                    {"Airport": "Sunshine", "lat": -26.6500, "lon": 153.0667},
+                    {"Airport": "Sydney", "lat": -33.8688, "lon": 151.2093},
+                    {"Airport": "Toowoomba", "lat": -27.5606, "lon": 151.9539},
+                    {"Airport": "Townsville", "lat": -19.2589, "lon": 146.8169}
+                ]
+              },
+              "key": "City",
+              "fields": ["lat", "lon"]
+            }
+          }
+        ],
+        "mark": "circle",
+        "encoding": {
+          "longitude": {"field":"lon", "type": "quantitative"},
+          "latitude": {"field":"lat","type": "quantitative"},
+          "size": {
+            "field": "Arrivals",
+            "type": "quantitative",
+            "title": "Aircraft Inbound Arrivals",
+            "scale":{"domain": [13860,644040],
+                    "range": [100,2000]}           
+            },
+            "color": {
+                "field": "State",
+                "type": "nominal",
+                "title": "State",
+                "scale": {"range": ["#00008B", "#ff7f0e", "#006400", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]}
+              }
+        }
+      }
+    ]
+  }
+  
