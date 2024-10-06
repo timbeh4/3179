@@ -19,9 +19,9 @@
         },
  
         "transform": [
-          {"filter" : "datum.Year === '2024'"},
+          {"filter" : "datum.Year === '2023'"},
           {
-            "fold": ["Adelaide_SA", "Brisbane_QLD", "Cairns_QLD", "Canberra_ACT", "Darwin_NT", "Gold_Coast_QLD", "Hobart_TAS", "Melbourne_VIC", "Newcastle_NSW", "Perth_WA", "Port_Hedland_WA", "Sunshine_Coast_QLD", "Sydney_NSW", "Toowoomba_Wellcamp_QLD", "Townsville_QLD"],
+            "fold": ["Adelaide_SA", "Brisbane_QLD", "Cairns_QLD", "Canberra_ACT", "Darwin_NT", "Gold Coast_QLD", "Hobart_TAS", "Melbourne_VIC", "Newcastle_NSW", "Perth_WA", "Port Hedland_WA", "Sunshine Coast_QLD", "Sydney_NSW", "Toowoomba Wellcamp_QLD", "Townsville_QLD"],
             "as": ["Airport", "Arrivals"]
           },
           {
@@ -42,15 +42,15 @@
                     {"Airport": "Cairns", "lat": -16.9186, "lon": 145.7781},
                     {"Airport": "Canberra", "lat": -35.2809, "lon": 149.1300},
                     {"Airport": "Darwin", "lat": -12.4634, "lon": 130.8456},
-                    {"Airport": "Gold", "lat": -28.0167, "lon": 153.4000},
+                    {"Airport": "Gold Coast", "lat": -28.0167, "lon": 153.4000},
                     {"Airport": "Hobart", "lat": -42.8821, "lon": 147.3272},
                     {"Airport": "Melbourne", "lat": -37.8136, "lon": 144.9631},
                     {"Airport": "Newcastle", "lat": -32.9283, "lon": 151.7817},
                     {"Airport": "Perth", "lat": -31.9505, "lon": 115.8605},
-                    {"Airport": "Port", "lat": -20.3104, "lon": 118.6010},
+                    {"Airport": "Port Hedland", "lat": -20.3104, "lon": 118.6010},
                     {"Airport": "Sunshine", "lat": -26.6500, "lon": 153.0667},
                     {"Airport": "Sydney", "lat": -33.8688, "lon": 151.2093},
-                    {"Airport": "Toowoomba", "lat": -27.5606, "lon": 151.9539},
+                    {"Airport": "Toowoomba Wellcamp", "lat": -27.5606, "lon": 151.9539},
                     {"Airport": "Townsville", "lat": -19.2589, "lon": 146.8169}
                 ]
               },
@@ -67,8 +67,8 @@
             "field": "Arrivals",
             "type": "quantitative",
             "title": "Aircraft Inbound Arrivals",
-            "scale":{"domain": [13860,644040],
-                    "range": [100,2000]}           
+            "scale":{"domain": [0,37337],
+                    "range": [0,500]}           
             },
             "color": {
                 "field": "State",
