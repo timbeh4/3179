@@ -1,170 +1,32 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Migration into Australia from various states over the years",
     "data": {
-      "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Homework10/datasource/Combined_arrival_depart.csv",
-      "format": {"type": "csv"}
+      "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Homework10/datasource/Migrant_arrivals_state.csv"  
     },
-    "params":[
-      { 
-        "name"  :  "Year_adjust"  , 
-        "value"  :  2023  , 
-        "bind"  : { 
-        "input"  :  "range"  , 
-        "min"  :  2018  , 
-        "max"  :  2023 , 
-        "step"  :  1  , 
-        "name"  :  "Year: " 
-        } 
-      } 
-    ],
     "transform": [
-      {
-        "calculate": "split(datum.Month, '-')[1]",
-        "as": "Year"
-      },
-      {
-        "fold": [
-          "Arrivals_NSW", "Arrivals_VIC", "Arrivals_QLD", "Arrivals_SA", "Arrivals_WA", "Arrivals_TAS", "Arrivals_NT", "Arrivals_ACT", "Arrivals_All_States",
-          "Departures_NSW", "Departures_VIC", "Departures_QLD", "Departures_SA", "Departures_WA", "Departures_TAS", "Departures_NT", "Departures_ACT", "Departures_All_States"
-        ],
-        "as": ["Category", "Value"]
-      },
-      {
-        "calculate": "split(datum.Category, '_')[0]", 
-        "as": "Type"
-      },
-      {
-        "calculate": "split(datum.Category, '_')[1]", 
-        "as": "State"
-      },
-      {
-        "aggregate": [
-          {
-            "op": "sum",
-            "field": "Value",
-            "as": "Total"
-          }
-        ],
-        "groupby": ["Year", "State", "Type"]
-      },
-      {
-        "filter": "datum.Year == Year_adjust"
-      },
-      {
-        "calculate": "datum.Type === 'Departures' ? -datum.Total : datum.Total",
-        "as": "AdjustedValue"
-      },
-      {
-        "filter": "datum.State != 'All'"
-      }
-    ],
-    "width": 450,
-    "height": 450,
-    "layer": [
-      {
-        "mark": "bar",
-        "encoding": {
-          "y": {
-            "field": "State",
-            "type": "ordinal",
-            "axis": {
-              "title": "States"
-            },
-            "sort": ["VIC", "NSW", "QLD", "SA", "WA", "TAS", "NT", "ACT","ALL"]
-          },
-          "x": {
-            "aggregate": "sum",
-            "field": "AdjustedValue",
-            "type": "quantitative",
-            "scale": {
-                "domain":[-9000000,9000000]
-            },
-            "axis": {
-              "title": "Number of People"
-            }
-          },
-          "color": {
-            "field": "Type",
-            "type": "nominal",
-            "scale": {
-              "domain": ["Arrivals", "Departures"],
-              "range": ["#1f77b4", "#d62728"]
-            },
-            "legend": {
-              "title": "Type"
-            }
-          },
-          "tooltip" : [
-            {"field": "Total", "title":"Value","type": "quantitative"},
-            {"field":"State","title":"State"},
-            {"field":"Type","title":"Type"}
-          ]
+        {
+            "fold" :["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"],
+            "as":["Year","Arrivals"]
         }
+    ],
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "temporal",
+        "axis": {"title": "Year"}
       },
-      { 
-        "mark"  : {
-          "type": "text",
-"align": "left",
-          "baseline": "middle",
-        "dx": 9 }, 
-        "encoding"  : { 
-          "text"  : {  "field"  :   "Total"  ,   "type"  :   "quantitative"}, 
-          "color"  : {  "value"  :   "black"  }, 
-          "opacity"  : { 
-            "condition"  : { 
-              "test"  :   "datum['Type'] == 'Arrivals'"  , 
-              "value"  :   1 
-          }, 
-            "value"  :   0 
-        },
-          "x": {
-            "aggregate": "sum",
-            "field": "AdjustedValue",
-            "type": "quantitative"
-          },
-          "y": {
-            "field": "State",
-            "type": "ordinal"
-          }
-       ,
-       "tooltip" : [
-        {"field": "Total", "title":"Value","type": "quantitative"},
-        {"field":"State","title":"State"},
-        {"field":"Type","title":"Type"}
-      ] }
+      "y": {
+        "field": "Arrivals",
+        "type": "quantitative",
+        "axis": {"title": "Number of Migrants"}
       },
-      { 
-        "mark"  : {
-          "type": "text",
-"align": "right",
-          "baseline": "middle",
-        "dx":-9 }, 
-        "encoding"  : { 
-          "text"  : {  "field"  :   "Total"  ,   "type"  :   "quantitative"}, 
-          "color"  : {  "value"  :   "black"  }, 
-          "opacity"  : { 
-            "condition"  : { 
-              "test"  :   "datum['Type'] == 'Departures'"  , 
-              "value"  :   1 
-          }, 
-            "value"  :   0 
-        },
-          "x": {
-            "aggregate": "sum",
-            "field": "AdjustedValue",
-            "type": "quantitative"
-          },
-          "y": {
-            "field": "State",
-            "type": "ordinal"
-          }
-       ,
-       "tooltip" : [
-        {"field": "Total", "title":"Value","type": "quantitative"},
-        {"field":"State","title":"State"},
-        {"field":"Type","title":"Type"}
-      ] }
+      "color": {
+        "field": "State",
+        "type": "nominal",
+        "legend": {"title": "State"}
       }
-    ]
+    }
   }
   
