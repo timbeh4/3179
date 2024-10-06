@@ -8,25 +8,36 @@
         {
             "fold" :["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023"],
             "as":["Year","Arrivals"]
+        },
+        {
+            "filter":"datum.Year == '2018' || datum.Year == '2019' || datum.Year == '2020' || datum.Year == '2021' || datum.Year == '2022' || datum.Year == '2023'"
         }
     ],
-    "mark": "line",
+    "width": 400,
+    "height": 400,
+    "mark":{"type": "line","point":true},
+    "title": "Migration Arrivals in Australia for various states over the years",
     "encoding": {
       "x": {
+        "type":"ordinal",
         "field": "Year",
-        "type": "temporal",
-        "axis": {"title": "Year"}
+        "axis": {"title": "Year","labelAngle":0}
       },
       "y": {
         "field": "Arrivals",
         "type": "quantitative",
-        "axis": {"title": "Number of Migrants"}
+        "axis": {"title": "Number of Migrant Arrivals"}
       },
       "color": {
         "field": "State",
         "type": "nominal",
         "legend": {"title": "State"}
-      }
+      },
+      "tooltip" : [
+        {"field": "Arrivals", "title":"Arrivals","type": "quantitative"},
+        {"field":"State","title":"State"},
+        {"field":"Year","title":"Year"}
+      ]
     }
   }
   

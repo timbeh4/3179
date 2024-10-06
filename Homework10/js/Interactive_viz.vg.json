@@ -58,8 +58,9 @@
         "filter": "datum.State != 'All'"
       }
     ],
-    "width": 450,
-    "height": 450,
+    "width": 400,
+    "height": 400,
+    "title": "All (Short Term and Long Term) Arrivals and Departures in Australia for different States",
     "layer": [
       {
         "mark": "bar",
@@ -68,7 +69,7 @@
             "field": "State",
             "type": "ordinal",
             "axis": {
-              "title": "States"
+              "title": "State"
             },
             "sort": ["VIC", "NSW", "QLD", "SA", "WA", "TAS", "NT", "ACT","ALL"]
           },
@@ -77,10 +78,10 @@
             "field": "AdjustedValue",
             "type": "quantitative",
             "scale": {
-                "domain":[-9000000,9000000]
+                "domain":[-9500000,9500000]
             },
             "axis": {
-              "title": "Number of People"
+              "title": "Number of People crossing the Australian Border"
             }
           },
           "color": {
@@ -91,13 +92,13 @@
               "range": ["#1f77b4", "#d62728"]
             },
             "legend": {
-              "title": "Type"
+              "title": "Type of Crossing"
             }
           },
           "tooltip" : [
-            {"field": "Total", "title":"Value","type": "quantitative"},
+            {"field": "Total", "title":"Number of People Crossing the Australian Border","type": "quantitative"},
             {"field":"State","title":"State"},
-            {"field":"Type","title":"Type"}
+            {"field":"Type","title":"Type of Crossing"}
           ]
         }
       },
@@ -128,9 +129,9 @@
           }
        ,
        "tooltip" : [
-        {"field": "Total", "title":"Value","type": "quantitative"},
+        {"field": "Total", "title":"Number of People Crossing the Australian Border","type": "quantitative"},
         {"field":"State","title":"State"},
-        {"field":"Type","title":"Type"}
+        {"field":"Type","title":"Type of Crossing"}
       ] }
       },
       { 
@@ -160,9 +161,9 @@
           }
        ,
        "tooltip" : [
-        {"field": "Total", "title":"Value","type": "quantitative"},
+        {"field": "Total", "title":"Number of People Crossing the Australian Border","type": "quantitative"},
         {"field":"State","title":"State"},
-        {"field":"Type","title":"Type"}
+        {"field":"Type","title":"Type of Crossing"}
       ] }
       }
     ]
