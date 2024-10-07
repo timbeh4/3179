@@ -10,16 +10,30 @@
         "value"  :  2023  , 
         "bind"  : { 
         "input"  :  "range"  , 
-        "min"  :  2018  , 
+        "min"  :  2013  , 
         "max"  :  2023 , 
         "step"  :  1  , 
         "name"  :  "Year: " 
         } 
-      } 
+      },
+           {
+            "name": "General_selection",
+            "value": ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "NT", "ACT"],
+            "bind": {
+            "input": "select",
+            "options": [
+            ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "NT", "ACT"],
+            ["All", "All","All","All","All","All","All","All"]
+            ],
+            "labels": ["Different States","Australia in Total"],
+            "name": "Information Selection: "
+            }
+          }
+  
     ],
     "transform": [
       {
-        "calculate": "split(datum.Month, '-')[1]",
+        "calculate": "datum.Month",
         "as": "Year"
       },
       {
@@ -51,11 +65,7 @@
         "filter": "datum.Year == Year_adjust"
       },
       {
-        "calculate": "datum.Type === 'Departures' ? -datum.Total : datum.Total",
-        "as": "AdjustedValue"
-      },
-      {
-        "filter": "datum.State != 'All'"
+        "filter": "(datum.State == General_selection[0])||(datum.State == General_selection[1])||(datum.State == General_selection[2])||(datum.State == General_selection[3])||(datum.State == General_selection[4])||(datum.State == General_selection[5])||(datum.State == General_selection[6])||(datum.State == General_selection[7])"
       }
     ],
     "width": 400,
@@ -63,6 +73,13 @@
     "title": "All (Short Term and Long Term) Arrivals and Departures in Australia for different States",
     "layer": [
       {
+        "selection" : {
+          "arrivals_highlight" : {
+            "type" : "multi",
+            "fields": ["Type"],
+            "bind" : "legend"
+          }
+        },
         "mark": "bar",
         "encoding": {
           "y": {
@@ -71,15 +88,13 @@
             "axis": {
               "title": "State"
             },
-            "sort": ["VIC", "NSW", "QLD", "SA", "WA", "TAS", "NT", "ACT","ALL"]
+            "sort": ["VIC", "NSW", "QLD", "SA", "WA", "TAS", "ACT", "NT"]
           },
+          "yOffset" : {"field": "Type"},
           "x": {
             "aggregate": "sum",
-            "field": "AdjustedValue",
+            "field": "Total",
             "type": "quantitative",
-            "scale": {
-                "domain":[-9500000,9500000]
-            },
             "axis": {
               "title": "Number of People crossing the Australian Border"
             }
@@ -95,6 +110,10 @@
               "title": "Type of Crossing"
             }
           },
+          "opacity" : {
+            "condition" : {"selection": "arrivals_highlight","value":1},
+            "value":0.2
+          },
           "tooltip" : [
             {"field": "Total", "title":"Number of People Crossing the Australian Border","type": "quantitative"},
             {"field":"State","title":"State"},
@@ -105,61 +124,26 @@
       { 
         "mark"  : {
           "type": "text",
-"align": "left",
+          "align": "left",
           "baseline": "middle",
-        "dx": 9 }, 
+        "dx":4}, 
         "encoding"  : { 
           "text"  : {  "field"  :   "Total"  ,   "type"  :   "quantitative"}, 
-          "color"  : {  "value"  :   "black"  }, 
-          "opacity"  : { 
-            "condition"  : { 
-              "test"  :   "datum['Type'] == 'Arrivals'"  , 
-              "value"  :   1 
-          }, 
-            "value"  :   0 
-        },
+          "color"  : {  "value"  :   "black"  },
+          "opacity" : {
+            "condition" : {"selection": "arrivals_highlight","value":1},
+            "value":0.2
+          },
           "x": {
             "aggregate": "sum",
-            "field": "AdjustedValue",
+            "field": "Total",
             "type": "quantitative"
           },
           "y": {
             "field": "State",
             "type": "ordinal"
-          }
-       ,
-       "tooltip" : [
-        {"field": "Total", "title":"Number of People Crossing the Australian Border","type": "quantitative"},
-        {"field":"State","title":"State"},
-        {"field":"Type","title":"Type of Crossing"}
-      ] }
-      },
-      { 
-        "mark"  : {
-          "type": "text",
-"align": "right",
-          "baseline": "middle",
-        "dx":-9 }, 
-        "encoding"  : { 
-          "text"  : {  "field"  :   "Total"  ,   "type"  :   "quantitative"}, 
-          "color"  : {  "value"  :   "black"  }, 
-          "opacity"  : { 
-            "condition"  : { 
-              "test"  :   "datum['Type'] == 'Departures'"  , 
-              "value"  :   1 
-          }, 
-            "value"  :   0 
-        },
-          "x": {
-            "aggregate": "sum",
-            "field": "AdjustedValue",
-            "type": "quantitative"
           },
-          "y": {
-            "field": "State",
-            "type": "ordinal"
-          }
-       ,
+       "yOffset":{"field" :"Type"},
        "tooltip" : [
         {"field": "Total", "title":"Number of People Crossing the Australian Border","type": "quantitative"},
         {"field":"State","title":"State"},

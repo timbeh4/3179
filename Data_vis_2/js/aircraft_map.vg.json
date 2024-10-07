@@ -108,6 +108,7 @@
             }
           }
         ],
+      
         "mark": {"type": "circle"},
         "encoding": {
           "longitude": {"field":"lon", "type": "quantitative"},
