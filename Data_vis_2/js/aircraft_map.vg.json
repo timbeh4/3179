@@ -102,6 +102,10 @@
               "key": "City",
               "fields": ["lat", "lon"]
             }
+          },
+          {
+            "calculate": "datum.City == 'Gold' ? 'Gold Coast' : datum.City == 'Sunshine' ? 'Sunshine Coast' : datum.City == 'Toowoomba' ? 'Toowoomba Wellcamp' : datum.City == 'Sunshine' ? 'Sunshine Coast' : datum.City == 'Port' ? 'Port Hedland' : datum.City ",
+            "as": "City"
           }
         ],
         "mark": {"type": "circle"},
