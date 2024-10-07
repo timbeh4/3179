@@ -74,6 +74,10 @@
             "as": "City"
           },
           {
+            "calculate": "datum.City == 'Gold' ? 'Gold Coast' : datum.City == 'Sunshine' ? 'Sunshine Coast' : datum.City == 'Toowoomba' ? 'Toowoomba Wellcamp' : datum.City == 'Sunshine' ? 'Sunshine Coast' : datum.City == 'Port' ? 'Port Hedland' : datum.City ",
+            "as": "City"
+          },
+          {
             "calculate": "split(datum.Airport, '_')[1]", 
             "as": "State"
           },
@@ -87,25 +91,21 @@
                     {"City": "Cairns", "lat": -16.9186, "lon": 145.7781},
                     {"City": "Canberra", "lat": -35.2809, "lon": 149.1300},
                     {"City": "Darwin", "lat": -12.4634, "lon": 130.8456},
-                    {"City": "Gold", "lat": -28.00029, "lon": 153.43088},
+                    {"City": "Gold Coast", "lat": -28.00029, "lon": 153.43088},
                     {"City": "Hobart", "lat": -42.8821, "lon": 147.3272},
                     {"City": "Melbourne", "lat": -37.8136, "lon": 144.9631},
                     {"City": "Newcastle", "lat": -32.9283, "lon": 151.7817},
                     {"City": "Perth", "lat": -31.9505, "lon": 115.8605},
-                    {"City": "Port", "lat": -20.3104, "lon": 118.6010},
-                    {"City": "Sunshine", "lat": -26.6500, "lon": 153.0667},
+                    {"City": "Port Hedland", "lat": -20.3104, "lon": 118.6010},
+                    {"City": "Sunshine Coast", "lat": -26.6500, "lon": 153.0667},
                     {"City": "Sydney", "lat": -32.5000, "lon": 149.5000},
-                    {"City": "Toowoomba", "lat": -27.5606, "lon": 151.9539},
+                    {"City": "Toowoomba Wellcamp", "lat": -27.5606, "lon": 151.9539},
                     {"City": "Townsville", "lat": -19.2589, "lon": 146.8169}
                 ]
               },
               "key": "City",
               "fields": ["lat", "lon"]
             }
-          },
-          {
-            "calculate": "datum.City == 'Gold' ? 'Gold Coast' : datum.City == 'Sunshine' ? 'Sunshine Coast' : datum.City == 'Toowoomba' ? 'Toowoomba Wellcamp' : datum.City == 'Sunshine' ? 'Sunshine Coast' : datum.City == 'Port' ? 'Port Hedland' : datum.City ",
-            "as": "City"
           }
         ],
         "mark": {"type": "circle"},
