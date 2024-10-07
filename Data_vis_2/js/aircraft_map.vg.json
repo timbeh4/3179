@@ -3,7 +3,50 @@
     "width": 800,
     "height": 450,
     "title": "Inbound International Airline Arrivals within Australia",
-    "projection": {"type": "mercator"},
+    "params":[
+      { 
+        "name"  :  "Year_adjust"  , 
+        "value"  :  2023  , 
+        "bind"  : { 
+        "input"  :  "range"  , 
+        "min"  :  2013  , 
+        "max"  :  2023 , 
+        "step"  :  1  , 
+        "name"  :  "Year: " 
+        } 
+      },
+      {
+        "name": "zoom_level",
+        "value": 600,
+        "bind": {
+        "input": "range",
+        "min": 600,
+        "max": 1500,
+        "step": 10,
+        "name": "Zoom: "
+        }
+        },
+        {
+          "name": "center_to",
+          "value": [134,-28.3],
+          "bind": {
+          "input": "select",
+          "options": [
+          [134,-28.3],
+          [133,-19],
+          [144.0880,-22.5750],
+          [147,-33.5],
+          [146.5,-42],
+          [144,-37],
+          [118.50,-26.6],
+          [149.01,-35.4735]
+          ],
+          "labels": ["Default","NT", "QLD", "NSW","TAS","VIC","WA","ACT"],
+          "name": "Select state to zoom into: "
+          }
+        }         
+    ],
+    "projection": {"type": "mercator","scale": {"expr": "zoom_level"},"center": {"expr": "center_to"}},
 
     "layer": [
       {
@@ -15,13 +58,15 @@
       },
       {
         "data": {
-          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/Aicraft_Data.csv"
+          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/Aircraft_Data.csv"
         },
  
         "transform": [
-          {"filter" : "datum.Year === '2023'"},
           {
-            "fold": ["Adelaide_SA", "Brisbane_QLD", "Cairns_QLD", "Canberra_ACT", "Darwin_NT", "Gold Coast_QLD", "Hobart_TAS", "Melbourne_VIC", "Newcastle_NSW", "Perth_WA", "Port Hedland_WA", "Sunshine Coast_QLD", "Sydney_NSW", "Toowoomba Wellcamp_QLD", "Townsville_QLD"],
+            "filter" : "toNumber(datum.Year) == Year_adjust"
+          },
+          {
+            "fold": ["Adelaide_SA", "Brisbane_QLD", "Cairns_QLD", "Canberra_ACT", "Darwin_NT", "Gold_QLD", "Hobart_TAS", "Melbourne_VIC", "Newcastle_NSW", "Perth_WA", "Port_WA", "Sunshine_QLD", "Sydney_NSW", "Toowoomba_QLD", "Townsville_QLD"],
             "as": ["Airport", "Arrivals"]
           },
           {
@@ -37,21 +82,21 @@
             "from": {
               "data": {
                 "values": [
-                    {"Airport": "Adelaide", "lat": -34.9285, "lon": 138.6007},
-                    {"Airport": "Brisbane", "lat": -27.4698, "lon": 153.0251},
-                    {"Airport": "Cairns", "lat": -16.9186, "lon": 145.7781},
-                    {"Airport": "Canberra", "lat": -35.2809, "lon": 149.1300},
-                    {"Airport": "Darwin", "lat": -12.4634, "lon": 130.8456},
-                    {"Airport": "Gold Coast", "lat": -28.0167, "lon": 153.4000},
-                    {"Airport": "Hobart", "lat": -42.8821, "lon": 147.3272},
-                    {"Airport": "Melbourne", "lat": -37.8136, "lon": 144.9631},
-                    {"Airport": "Newcastle", "lat": -32.9283, "lon": 151.7817},
-                    {"Airport": "Perth", "lat": -31.9505, "lon": 115.8605},
-                    {"Airport": "Port Hedland", "lat": -20.3104, "lon": 118.6010},
-                    {"Airport": "Sunshine", "lat": -26.6500, "lon": 153.0667},
-                    {"Airport": "Sydney", "lat": -33.8688, "lon": 151.2093},
-                    {"Airport": "Toowoomba Wellcamp", "lat": -27.5606, "lon": 151.9539},
-                    {"Airport": "Townsville", "lat": -19.2589, "lon": 146.8169}
+                    {"City": "Adelaide", "lat": -34.92866, "lon": 138.59863},
+                    {"City": "Brisbane", "lat": -27.46794, "lon": 153.02809},
+                    {"City": "Cairns", "lat": -16.9186, "lon": 145.7781},
+                    {"City": "Canberra", "lat": -35.2809, "lon": 149.1300},
+                    {"City": "Darwin", "lat": -12.4634, "lon": 130.8456},
+                    {"City": "Gold", "lat": -28.00029, "lon": 153.43088},
+                    {"City": "Hobart", "lat": -42.8821, "lon": 147.3272},
+                    {"City": "Melbourne", "lat": -37.8136, "lon": 144.9631},
+                    {"City": "Newcastle", "lat": -32.9283, "lon": 151.7817},
+                    {"City": "Perth", "lat": -31.9505, "lon": 115.8605},
+                    {"City": "Port", "lat": -20.3104, "lon": 118.6010},
+                    {"City": "Sunshine", "lat": -26.6500, "lon": 153.0667},
+                    {"City": "Sydney", "lat": -32.5000, "lon": 149.5000},
+                    {"City": "Toowoomba", "lat": -27.5606, "lon": 151.9539},
+                    {"City": "Townsville", "lat": -19.2589, "lon": 146.8169}
                 ]
               },
               "key": "City",
@@ -59,23 +104,35 @@
             }
           }
         ],
-        "mark": "circle",
+        "mark": {"type": "circle"},
         "encoding": {
           "longitude": {"field":"lon", "type": "quantitative"},
           "latitude": {"field":"lat","type": "quantitative"},
           "size": {
+            "aggregate" : "sum",
             "field": "Arrivals",
             "type": "quantitative",
             "title": "Aircraft Inbound Arrivals",
-            "scale":{"domain": [0,37337],
-                    "range": [0,500]}           
+            "scale":{"type":"threshold","domain": [200,2000,20000,40000],
+                    "range": [200,700,1200,1700,3000]}           
             },
+            "opacity": {
+            "condition": {
+              "test": "datum.Arrivals == 0",
+              "value": 0  
+            },
+            "value": 0.5
+          },
             "color": {
                 "field": "State",
                 "type": "nominal",
                 "title": "State",
                 "scale": {"range": ["#00008B", "#ff7f0e", "#006400", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]}
-              }
+              },
+              "tooltip": [
+          {"field": "City", "type": "nominal"},
+          {"field": "Arrivals", "type": "quantitative", "title":"Overseas Arrivals"}
+        ]
         }
       }
     ]
