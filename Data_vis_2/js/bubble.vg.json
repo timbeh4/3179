@@ -1,0 +1,145 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/clean_country.csv"
+    },
+    "params": [
+        {
+            "name": "Continent_selection",
+            "value": "Oceania and Antarctica",
+            "bind": {
+            "input": "select",
+            "options": [
+                "Oceania and Antarctica",
+                "North-West Europe",
+                "Southern and Eastern Europe",
+                "North Africa and the Middle East",
+                "South-East Asia",
+                "North-East Asia",
+                "Southern and Central Asia",
+                "Americas",
+                "Sub-Saharan Africa"
+            ]
+            ,
+            "labels": [
+                "Oceania and Antarctica",
+                "North-West Europe",
+                "Southern and Eastern Europe",
+                "North Africa and the Middle East",
+                "South-East Asia",
+                "North-East Asia",
+                "Southern and Central Asia",
+                "Americas",
+                "Sub-Saharan Africa"
+            ],
+            "name": "Select the world region: "
+            }
+          }
+    ],
+    "width": 600,
+    "height": 400,
+    "transform": [
+        {
+        "fold": [
+            "New Zealand",
+            "New Caledonia",
+            "Papua New Guinea",
+            "Vanuatu",
+            "Fiji",
+            "Other Oceania and Antarctica",
+            "UK",
+            "Ireland",
+            "Austria",
+            "Belgium",
+            "France",
+            "Germany",
+            "Netherlands",
+            "Switzerland",
+            "Denmark",
+            "Finland",
+            "Norway",
+            "Sweden",
+            "Other North-West Europe",
+            "Italy",
+            "Spain",
+            "Poland",
+            "Russian Federation",
+            "Other Southern and Eastern Europe",
+            "Iran",
+            "Israel",
+            "Saudi Arabia",
+            "United Arab Emirates",
+            "Other North Africa and the Middle East",
+            "Cambodia",
+            "Thailand",
+            "Vietnam",
+            "Indonesia",
+            "Malaysia",
+            "Philippines",
+            "Singapore",
+            "Other South-East Asia",
+            "China",
+            "Hong Kong",
+            "Taiwan",
+            "Japan",
+            "South Korea",
+            "Other North-East Asia",
+            "Bangladesh",
+            "India",
+            "Nepal",
+            "Pakistan",
+            "Sri Lanka",
+            "Other Southern and Central Asia",
+            "Canada",
+            "United States of America",
+            "Argentina",
+            "Brazil",
+            "Chile",
+            "Colombia",
+            "Mexico",
+            "Other Americas",
+            "South Africa",
+            "Other Sub-Saharan Africa"
+        ]
+        ,
+          "as": ["Country", "Visitors"]},
+          {
+            "calculate": "datum.Country === 'New Zealand' || datum.Country === 'New Caledonia' || datum.Country === 'Papua New Guinea' || datum.Country === 'Vanuatu' || datum.Country === 'Fiji' || datum.Country === 'Other Oceania and Antarctica' ? 'Oceania and Antarctica' : datum.Country === 'UK' || datum.Country === 'Ireland' || datum.Country === 'Austria' || datum.Country === 'Belgium' || datum.Country === 'France' || datum.Country === 'Germany' || datum.Country === 'Netherlands' || datum.Country === 'Switzerland' || datum.Country === 'Denmark' || datum.Country === 'Finland' || datum.Country === 'Norway' || datum.Country === 'Sweden' || datum.Country === 'Other North-West Europe' ? 'North-West Europe' :datum.Country === 'Italy' || datum.Country ==='Spain' || datum.Country === 'Poland' || datum.Country === 'Russian Federation' || datum.Country === 'Other Southern and Eastern Europe' ? 'Southern and Eastern Europe' : datum.Country === 'Iran' || datum.Country === 'Israel' || datum.Country === 'Saudi Arabia' || datum.Country === 'United Arab Emirates' || datum.Country === 'Other North Africa and the Middle East' ? 'North Africa and the Middle East' : datum.Country === 'Cambodia' || datum.Country === 'Thailand' || datum.Country === 'Vietnam' || datum.Country === 'Indonesia' || datum.Country === 'Malaysia' || datum.Country === 'Philippines' || datum.Country === 'Singapore' || datum.Country === 'Other South-East Asia' ? 'South-East Asia' : datum.Country === 'China' || datum.Country === 'Hong Kong' || datum.Country === 'Taiwan' || datum.Country === 'Japan' || datum.Country === 'South Korea' || datum.Country === 'Other North-East Asia' ? 'North-East Asia' : datum.Country === 'Bangladesh' || datum.Country === 'India' || datum.Country === 'Nepal' || datum.Country === 'Pakistan' || datum.Country === 'Sri Lanka' || datum.Country === 'Other Southern and Central Asia' ? 'Southern and Central Asia' : datum.Country === 'Canada' || datum.Country === 'United States of America' || datum.Country === 'Argentina' || datum.Country === 'Brazil' || datum.Country === 'Chile' || datum.Country === 'Colombia' || datum.Country === 'Mexico' || datum.Country === 'Other Americas' ? 'Americas' : 'Sub-Saharan Africa'  ",
+            "as": "Region"
+          }
+          
+          ,
+          {
+            "filter":"datum.Region === Continent_selection"
+          }
+    ],
+    "mark": {
+      "type": "circle",
+      "opacity": 0.8,
+      "stroke": "black",
+      "strokeWidth": 1
+    },
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "ordinal",
+        "axis": {"grid": false}
+      },
+      "y": {"field": "Country", "type": "nominal", "axis": {"title": ""},"sort": {
+        "field": "Country",
+        "order" :"ascending"
+      }},
+      "size": {
+        "field": "Visitors",
+        "type": "quantitative",
+        "title": "Visitors",
+        "legend": {"clipHeight": 30},
+        "scale": {"rangeMax": 5000}
+      },
+      "tooltip": [
+        {"field": "Country", "type": "nominal"},
+        {"field": "Visitors", "type": "quantitative"},
+        {"field": "Region", "type": "nominal"}
+      ]    }
+  }
+  
