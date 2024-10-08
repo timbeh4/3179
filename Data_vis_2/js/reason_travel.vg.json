@@ -1,5 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "vconcat" : [
+      {
     "data": {
         "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/yearly_data.csv",
         "format": {"type": "csv"}
@@ -11,9 +13,12 @@
                 ],
                 "as": ["Category", "Value"]
         
+        },
+        {
+            "filter": "datum.Year != '2024' && datum.Year != '2012'"
         }
       ],
-    "params": [{"name": "highlight", "select": "point"}],
+    "params": [{"name": "highlight", "select": {"type": "point", "encodings": ["x","y"]}}],
     "mark": {"type": "rect", "strokeWidth": 2},
     "encoding": {
       "y": {
@@ -40,9 +45,10 @@
         "condition": {"param": "highlight", "value": 1},
         "value": 0.5
       },
-      "order": {"condition": {"param": "highlight", "value": 1}, "value": 0},
-      "tooltip" : [
-        {"field": "Value", "title":"Percentage Increase","type": "quantitative"}
+            "tooltip" : [
+        {"field": "Value", "title":"Number of Short Term Visitors","type": "quantitative"},
+        {"field": "Year", "title": "Year", "type": "ordinal"},
+        {"field":"Category", "title" :"Reason"}
       ]
     },
     "config": {
@@ -50,14 +56,9 @@
         "bandPaddingInner": 0,
         "bandPaddingOuter": 0
       },
-      "view": {"step": 40},
-      "range": {
-        "ramp": {
-          "scheme": "yellowgreenblue"
-        }
-      },
+      "view": {"step": 50},
       "axis": {
         "domain": false
       }
-    }
+    }}]
   }
