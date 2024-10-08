@@ -1,0 +1,117 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "config": {
+        "scale": {
+          "bandPaddingInner": 0,
+          "bandPaddingOuter": 0
+        },
+        "view": {"step": 50},
+        "axis": {
+          "domain": false
+        }
+      },
+    "vconcat" : [
+      {
+    "data": {
+        "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/yearly_data.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {
+                "fold": [
+                    "Conference",	"Business","Visiting friends/relatives","Holiday",	"Employment","Education","Other"
+                ],
+                "as": ["Category", "Value"]
+        
+        },
+        {
+            "filter": "datum.Year != '2024' && datum.Year != '2012'"
+        }
+      ],
+    "params": [{"name": "highlight", "select": {"type": "point", "encodings": ["x","y"]}}],
+    "mark": {"type": "rect", "strokeWidth": 2},
+    "encoding": {
+      "y": {
+        "field": "Category",
+        "type": "nominal"
+      },
+      "x": {
+        "field": "Year",
+        "type": "ordinal"
+      },
+      "fill": {
+        "field": "Value",
+        "type": "quantitative",
+        "scale":{
+            "scheme" :"viridis"
+        }
+      },
+      "stroke": {
+        "condition": {
+          "param": "highlight",
+          "empty": false,
+          "value": "black"
+        },
+        "value": null
+      },
+      "opacity": {
+        "condition": {"param": "highlight", "value": 1},
+        "value": 0.5
+      },
+            "tooltip" : [
+        {"field": "Value", "title":"Number of Short Term Visitors","type": "quantitative"},
+        {"field": "Year", "title": "Year", "type": "ordinal"},
+        {"field":"Category", "title" :"Reason"}
+      ]
+    }},
+    {
+      "data": {
+          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/yearly_stay.csv",
+          "format": {"type": "csv"}
+        },
+        "transform": [
+          {
+                  "fold": [
+                      "Under 1 week ;",	"1 and under 2 weeks ;", "2 weeks and under 1 month ;",	"1 and under 2 months ;",	"2 and under 3 months ;",	"3 and under 6 months ;",	"6 and under 12 months ;"
+                  ],
+                  "as": ["Category_2", "Value_2"]
+          
+          },
+          {
+              "filter": "datum.Year != '2024'"
+          }
+        ],
+      "params": [{"name": "highlight_2", "select": {"type": "point", "encodings": ["x","y"]}}],
+      "mark": {"type": "rect", "strokeWidth": 2},
+      "encoding": {
+        "y": {
+          "field": "Category_2",
+          "type": "nominal"
+        },
+        "x": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "fill": {
+          "field": "Value_2",
+          "type": "quantitative"
+        },
+        "stroke": {
+          "condition": {
+            "param": "highlight_2",
+            "empty": false,
+            "value": "black"
+          },
+          "value": null
+        },
+        "opacity": {
+          "condition": {"param": "highlight_2", "value": 1},
+          "value": 0.5
+        },
+              "tooltip" : [
+          {"field": "Value_2", "title":"Number of Short Term Visitors","type": "quantitative"},
+          {"field": "Year", "title": "Year", "type": "ordinal"},
+          {"field":"Category_2", "title" :"Reason"}
+        ]
+      }}]
+  }

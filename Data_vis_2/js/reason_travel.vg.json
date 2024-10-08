@@ -1,7 +1,5 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "vconcat" : [
-      {
     "data": {
         "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/yearly_data.csv",
         "format": {"type": "csv"}
@@ -60,5 +58,5 @@
       "axis": {
         "domain": false
       }
-    }}]
+    }
   }
