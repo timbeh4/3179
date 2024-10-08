@@ -1,0 +1,63 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/percentage_change_2013_2023.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {
+                "fold": [
+                    "Conference",	"Business","Visiting friends/relatives","Holiday",	"Employment","Education","Other"
+                ],
+                "as": ["Category", "Value"]
+        
+        }
+      ],
+    "params": [{"name": "highlight", "select": "point"}],
+    "mark": {"type": "rect", "strokeWidth": 2},
+    "encoding": {
+      "y": {
+        "field": "Category",
+        "type": "nominal"
+      },
+      "x": {
+        "field": "Year",
+        "type": "ordinal"
+      },
+      "fill": {
+        "field": "Value",
+        "type": "quantitative"
+      },
+      "stroke": {
+        "condition": {
+          "param": "highlight",
+          "empty": false,
+          "value": "black"
+        },
+        "value": null
+      },
+      "opacity": {
+        "condition": {"param": "highlight", "value": 1},
+        "value": 0.5
+      },
+      "order": {"condition": {"param": "highlight", "value": 1}, "value": 0},
+      "tooltip" : [
+        {"field": "Value", "title":"Percentage Increase","type": "quantitative"}
+      ]
+    },
+    "config": {
+      "scale": {
+        "bandPaddingInner": 0,
+        "bandPaddingOuter": 0
+      },
+      "view": {"step": 40},
+      "range": {
+        "ramp": {
+          "scheme": "yellowgreenblue"
+        }
+      },
+      "axis": {
+        "domain": false
+      }
+    }
+  }
