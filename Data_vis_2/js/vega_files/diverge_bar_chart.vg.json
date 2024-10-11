@@ -68,7 +68,7 @@
         "filter": "(datum.State == General_selection[0])||(datum.State == General_selection[1])||(datum.State == General_selection[2])||(datum.State == General_selection[3])||(datum.State == General_selection[4])||(datum.State == General_selection[5])||(datum.State == General_selection[6])||(datum.State == General_selection[7])"
       }
     ],
-    "width": 400,
+    "width": 640,
     "height": 400,
     "title": "All (Short Term and Long Term) Arrivals and Departures in Australia for different States",
     "layer": [

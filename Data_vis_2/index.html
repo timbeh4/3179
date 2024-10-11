@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualisation 2</title>
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <style>
+        body {
+            background-color: #f5f5dc; /* Dark brown background */
+        }
+        .container {
+            max-width: 1300px; /* Adjust as needed for the desired width */
+            margin: 0 auto; /* Center the container */
+            padding: 40px; /* Add some padding */
+            background-color: rgba(147, 100, 13, 0.644); /* Dark blue background */
+            border-radius: 8px; /* Rounded corners for boxes */
+
+        }
+        .title {
+            text-align: center; /* Center the title text */
+            margin-bottom: 80px; /* Space below the title */
+            margin-top: 8px;
+            font-size: 50px; /* Title font size */
+        }
+        .box {
+            padding: 10px;
+            min-height: 40px; /* Minimum height for visualizations */
+            margin-bottom: 5px; /* Space between boxes */
+            display: flex; /* Use flexbox for layout */
+        }
+        .visualization {
+            flex: 1; 
+        }
+        .text-content {
+            background-color: #f5f5dc; /* Background color for text area */
+            padding: 0px; /* Padding for text area */
+            flex: 1; /* Allow text area to take equal space */
+        }
+        .sub-title {
+          margin-bottom: 15px; /* Space below the title */
+          margin-top: 40px;
+          font-size: 30px; /* Title font size */
+          margin-left: 5px;
+        }
+        .box-vertical{
+          background-color: #f5f5dc; /* Very light brown for boxes */
+          border-radius: 8px; /* Rounded corners for boxes */
+          flex-direction: column;
+        }
+        .normal_text{
+          margin-top: 0px;
+          font-size: 20px;
+          margin-bottom: 10px ;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="title">International Movement and Tourism in Australia</h1> <!-- Title added here -->
+        <h4> Author: Timothy Beh</h4>
+        <h4>Source: Australian Bureau of Statistics</h4>
+        <!-- Box 1 -->
+
+        <div class="box-vertical">
+          <h2 class="sub-title">International Crossings in and out of Australia</h2>
+        <div class="box">
+            <div class="visualization" id="vis1"></div> <!-- Embed Vega-Lite visualization here -->
+            <div class="text-content">
+                <h4 class="normal_text">Have aircraft arrival patterns changed over time?</h4>
+                <p class="normal_text">
+         Australia being one of the most visited countries has many international crossings, especially evident by its aircraft movement. In 2023 Sydney airport and Melbourne airport received between 20000 and 40000 aircraft arrivals. TODO</p>
+            </div>
+        </div>
+        <div class="box">
+          <div class="visualization" id="vis3"></div> <!-- Embed Vega-Lite visualization here -->
+          <div class="text-content">
+              <h4 class="normal_text">Have people movement in terms of arrivals and departures changed over time?</h4>
+              <p class="normal_text">
+                  NSW and VIC dominate in terms of number of arrivals and departure as they represent key international hubs in Australia. Other states such as QLD received around 3 million arrivals in 2023. TODO.
+                </p>
+          </div>
+      </div>
+      </div>
+
+        <!-- Box 2 -->
+
+        <div class="box-vertical">
+        <!-- Box 3 -->
+        <h2 class="sub-title">Tourism</h2>
+        <div class="box">
+            <div class="visualization" id="vis5"></div> <!-- Embed Vega-Lite visualization here -->
+            <div class="text-content">
+                <h4 class="normal_text" >What's the main reason for visiting and How long do tourists stay?</h4>
+                <p class="normal_text">The main reason for visiting (short term) Australia is for Holiday or visiting friends/relatives. In 2020 a drop in these two categories can be noticed but has started to pick up in 2022 and 2023. TODO</p>
+            </div>
+        </div>
+        <!-- Box 4 -->
+        <div class="box">
+            <div class="visualization" id="vis2"></div> <!-- Embed Vega-Lite visualization here -->
+            <div class="text-content">
+                <h4 class="normal_text">Where do visitors come from?</h4>
+                <p class="normal_text">Within Oceania, many visitors come from New Zealand. In North East Asia, many come from China. TODO .</p>
+            </div>
+        </div>
+      </div>
+
+      <div class="box-vertical">
+        <h2 class="sub-title">Migration</h2>
+        <div class="box">
+          <div class="visualization" id="vis4"></div> <!-- Embed Vega-Lite visualization here -->
+          <div class="text-content">
+              <h4 class="normal_text">How have migration patterns changed over time and what is the distribution in terms of visa and citizenship groups?</h4>
+              <p class="normal_text">In general, the majority of migrants have temporary visas. However, during 2020 and 2021 the number of temporary visas decreased. TODO</p>
+          </div>
+      </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/aircraft_map.js"></script>
+    <script type="text/javascript" src="js/diverge_bar.js"></script>
+    <script type="text/javascript" src="js/bubble_chart.js"></script>
+    <script type="text/javascript" src="js/groups_filter.js"></script>
+    <script type="text/javascript" src="js/reason_combine.js"></script>
+</body>
+</html>

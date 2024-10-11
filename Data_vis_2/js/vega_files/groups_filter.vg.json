@@ -1,0 +1,99 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/Groups_arrivals_migrant.csv",
+        "format": {"type": "csv"}
+      },
+      "transform": [
+        {
+            "fold": [
+                "2013",	"2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"
+            ],
+            "as": ["Year", "Value"]
+    
+    },
+    {"calculate": "datetime(datum.Year)",
+    "as": "Year_num"
+}
+      ],
+    "vconcat" : [
+      {
+      "transform": [
+        {
+            "filter" : "datum.Groups === 'Total'"
+        }
+      ],
+      "width":560,
+    "mark": "area",
+    "params": [{
+      "name": "brush",
+      "select": {"type": "interval", "encodings": ["x"]}
+    }],
+    "encoding": {
+      "y": {
+        "aggregate" : "sum",
+        "field": "Value",
+        "type": "quantitative"
+      },
+      "x": {
+        "timeUnit": "year",
+        "field": "Year_num",
+        "title": "Financial Year"
+      },
+            "tooltip" : [
+        {"field": "Value", "title":"Number of Migrants","type": "quantitative"},
+        {"field": "Year", "title": "Financial Year", "type": "ordinal"}
+      ]
+    }},
+    {
+    
+        "transform": [
+            {"filter": {"param": "brush"}},
+            {
+                
+                    "aggregate": [
+                      {
+                        "op": "sum",
+                        "field": "Value",
+                        "as": "Total"
+                      }
+                    ],
+                    "groupby": ["Groups"]
+                  
+            },
+            {
+                "filter": "datum.Groups != 'Total'"
+            }
+        ],
+        "encoding": {
+            "theta": {"field": "Total", "type": "quantitative", "stack": true},
+            "color": {"field": "Groups", "type": "nominal", "legend":{
+                "labelExpr": "datum.value === '' ? 'Total' : datum.value"
+            }}
+          },
+        "layer": [{       
+        "title" : "Drag time interval on the area graph above to see the distribution",
+        "mark": {"type": "arc", "innerRadius": 50},
+        "encoding": {
+            "tooltip" : [
+                {"field": "Total", "title":"Number of Migrants","type": "quantitative"},
+                {"field": "Groups", "title": "Group", "type": "nominal"}
+              ]
+        }},{
+            "mark": {"type": "text", "radius": 130},
+    "encoding": {
+      "text": {"field": "Total", "type": "quantitative"},
+      "opacity" :{
+        "condition":{
+            "test": "datum.Total == 0",
+            "value" : 0
+        },
+        "value" :1
+      }
+    }
+  }]
+
+}]
+    }
+
+
