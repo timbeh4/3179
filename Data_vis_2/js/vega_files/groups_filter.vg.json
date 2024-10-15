@@ -23,8 +23,10 @@
             "filter" : "datum.Groups === 'Total'"
         }
       ],
-      "width":560,
-    "mark": "area",
+      "width":555,
+      "title":"Total Number of Migrants Arriving into Australia over the Years",
+    "mark": {"type":"area",
+    "color": "#800080"},
     "params": [{
       "name": "brush",
       "select": {"type": "interval", "encodings": ["x"]}
@@ -33,7 +35,8 @@
       "y": {
         "aggregate" : "sum",
         "field": "Value",
-        "type": "quantitative"
+        "type": "quantitative",
+        "title" :"Total Number of Migrant Arrivals"
       },
       "x": {
         "timeUnit": "year",
@@ -41,8 +44,8 @@
         "title": "Financial Year"
       },
             "tooltip" : [
-        {"field": "Value", "title":"Number of Migrants","type": "quantitative"},
-        {"field": "Year", "title": "Financial Year", "type": "ordinal"}
+        {"field": "Value", "title":"Total Number of Migrant Arrivals:","type": "quantitative"},
+        {"field": "Year", "title": "Financial Year:", "type": "ordinal"}
       ]
     }},
     {
@@ -71,18 +74,25 @@
                 "labelExpr": "datum.value === '' ? 'Total' : datum.value"
             }}
           },
+          "height": 240,
+          "width":430,
         "layer": [{       
-        "title" : "Drag time interval on the area graph above to see the distribution",
+        "title" : "Click and drag time interval on the graph above to see the migrant arrivals split into visa/citizen group",
         "mark": {"type": "arc", "innerRadius": 50},
         "encoding": {
             "tooltip" : [
-                {"field": "Total", "title":"Number of Migrants","type": "quantitative"},
-                {"field": "Groups", "title": "Group", "type": "nominal"}
+                {"field": "Total", "title":"Number of Migrants Arriving in this Group:","type": "quantitative"},
+                {"field": "Groups", "title": "Group:", "type": "nominal"}
               ]
         }},{
-            "mark": {"type": "text", "radius": 130},
+            "mark": {"type": "text", "radius": 150},
     "encoding": {
-      "text": {"field": "Total", "type": "quantitative"},
+      "text": {"field": "Total", "type": "quantitative","format":",d"},
+            "tooltip" : [
+                {"field": "Total", "title":"Number of Migrants Arriving in this Group:","type": "quantitative"},
+                {"field": "Groups", "title": "Group:", "type": "nominal"}
+              ]
+        ,
       "opacity" :{
         "condition":{
             "test": "datum.Total == 0",

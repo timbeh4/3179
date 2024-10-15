@@ -10,6 +10,7 @@
           "domain": false
         }
       },
+
     "vconcat" : [
       {
     "data": {
@@ -30,18 +31,27 @@
       ],
       
     "params": [{"name": "highlight", "select": {"type": "point", "encodings": ["x","y"]}}],
+    "width": 522,
+    "height": 350,
+    "title":"Reasons for Visitng Australia",
     "mark": {"type": "rect", "strokeWidth": 2},
     "encoding": {
       "y": {
         "field": "Category",
-        "type": "nominal"
+        "type": "nominal",
+        "title": "Reason for Visiting",
+        "sort": [
+          "Conference",	"Business","Visiting friends/relatives","Holiday",	"Employment","Education","Other"
+      ]
       },
       "x": {
         "field": "Year",
-        "type": "ordinal"
+        "type": "ordinal",
+        "axis":{"labelAngle":0}
       },
       "fill": {
         "field": "Value",
+        "title":"Number of Visitors",
         "type": "quantitative",
         "scale":{
             "scheme" :"viridis"
@@ -60,9 +70,9 @@
         "value": 0.5
       },
             "tooltip" : [
-        {"field": "Value", "title":"Number of Short Term Visitors","type": "quantitative"},
-        {"field": "Year", "title": "Year", "type": "ordinal"},
-        {"field":"Category", "title" :"Reason"}
+        {"field":"Category", "title" :"Reason:"},
+        {"field": "Value", "title":"Number of Short Term Visitors:","type": "quantitative"},
+        {"field": "Year", "title": "Year:", "type": "ordinal"}
       ]
     }},
     {
@@ -73,8 +83,8 @@
         "transform": [
           {
                   "fold": [
-                      "Under 1 week ;",	"1 and under 2 weeks ;", "2 weeks and under 1 month ;",	"1 and under 2 months ;",	"2 and under 3 months ;",	"3 and under 6 months ;",	"6 and under 12 months ;"
-                  ],
+                    "Under 1 week",	"1 and under 2 weeks", "2 weeks and under 1 month",	"1 and under 2 months",	"2 and under 3 months",	"3 and under 6 months",	"6 and under 12 months"
+                ],
                   "as": ["Category_2", "Value_2"]
           
           },
@@ -83,15 +93,22 @@
           }
         ],
       "params": [{"name": "highlight_2", "select": {"type": "point", "encodings": ["x","y"]}}],
+      "width": 522,
+      "height": 350,
+      "title": "Intended Length of Stay",
       "mark": {"type": "rect", "strokeWidth": 2},
       "encoding": {
         "y": {
           "field": "Category_2",
-          "type": "nominal"
-        },
+          "type": "nominal",
+          "title":"Length of Stay",
+          "sort":  [
+            "Under 1 week",	"1 and under 2 weeks", "2 weeks and under 1 month",	"1 and under 2 months",	"2 and under 3 months",	"3 and under 6 months",	"6 and under 12 months"
+        ]        },
         "x": {
           "field": "Year",
-          "type": "ordinal"
+          "type": "ordinal",
+          "axis":{"labelAngle":0}
         },
         "fill": {
           "field": "Value_2",
@@ -110,9 +127,10 @@
           "value": 0.5
         },
               "tooltip" : [
-          {"field": "Value_2", "title":"Number of Short Term Visitors","type": "quantitative"},
-          {"field": "Year", "title": "Year", "type": "ordinal"},
-          {"field":"Category_2", "title" :"Reason"}
+          {"field":"Category_2", "title" :"Length of Stay:"},
+          {"field": "Value_2", "title":"Number of Short Term Visitors:","type": "quantitative"},
+          {"field": "Year", "title": "Year:", "type": "ordinal"}
+
         ]
       }}]
   }

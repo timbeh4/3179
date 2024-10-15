@@ -36,8 +36,8 @@
             }
           }
     ],
-    "width": 520,
-    "height": 400,
+    "width": 532,
+    "height": 380,
     "transform": [
         {
         "fold": [
@@ -91,7 +91,7 @@
             "Sri Lanka",
             "Other Southern and Central Asia",
             "Canada",
-            "United States of America",
+            "USA",
             "Argentina",
             "Brazil",
             "Chile",
@@ -104,18 +104,23 @@
         ,
           "as": ["Country", "Visitors"]},
           {
-            "calculate": "datum.Country === 'New Zealand' || datum.Country === 'New Caledonia' || datum.Country === 'Papua New Guinea' || datum.Country === 'Vanuatu' || datum.Country === 'Fiji' || datum.Country === 'Other Oceania and Antarctica' ? 'Oceania and Antarctica' : datum.Country === 'UK' || datum.Country === 'Ireland' || datum.Country === 'Austria' || datum.Country === 'Belgium' || datum.Country === 'France' || datum.Country === 'Germany' || datum.Country === 'Netherlands' || datum.Country === 'Switzerland' || datum.Country === 'Denmark' || datum.Country === 'Finland' || datum.Country === 'Norway' || datum.Country === 'Sweden' || datum.Country === 'Other North-West Europe' ? 'North-West Europe' :datum.Country === 'Italy' || datum.Country ==='Spain' || datum.Country === 'Poland' || datum.Country === 'Russian Federation' || datum.Country === 'Other Southern and Eastern Europe' ? 'Southern and Eastern Europe' : datum.Country === 'Iran' || datum.Country === 'Israel' || datum.Country === 'Saudi Arabia' || datum.Country === 'United Arab Emirates' || datum.Country === 'Other North Africa and the Middle East' ? 'North Africa and the Middle East' : datum.Country === 'Cambodia' || datum.Country === 'Thailand' || datum.Country === 'Vietnam' || datum.Country === 'Indonesia' || datum.Country === 'Malaysia' || datum.Country === 'Philippines' || datum.Country === 'Singapore' || datum.Country === 'Other South-East Asia' ? 'South-East Asia' : datum.Country === 'China' || datum.Country === 'Hong Kong' || datum.Country === 'Taiwan' || datum.Country === 'Japan' || datum.Country === 'South Korea' || datum.Country === 'Other North-East Asia' ? 'North-East Asia' : datum.Country === 'Bangladesh' || datum.Country === 'India' || datum.Country === 'Nepal' || datum.Country === 'Pakistan' || datum.Country === 'Sri Lanka' || datum.Country === 'Other Southern and Central Asia' ? 'Southern and Central Asia' : datum.Country === 'Canada' || datum.Country === 'United States of America' || datum.Country === 'Argentina' || datum.Country === 'Brazil' || datum.Country === 'Chile' || datum.Country === 'Colombia' || datum.Country === 'Mexico' || datum.Country === 'Other Americas' ? 'Americas' : 'Sub-Saharan Africa'  ",
+            "calculate": "datum.Country === 'New Zealand' || datum.Country === 'New Caledonia' || datum.Country === 'Papua New Guinea' || datum.Country === 'Vanuatu' || datum.Country === 'Fiji' || datum.Country === 'Other Oceania and Antarctica' ? 'Oceania and Antarctica' : datum.Country === 'UK' || datum.Country === 'Ireland' || datum.Country === 'Austria' || datum.Country === 'Belgium' || datum.Country === 'France' || datum.Country === 'Germany' || datum.Country === 'Netherlands' || datum.Country === 'Switzerland' || datum.Country === 'Denmark' || datum.Country === 'Finland' || datum.Country === 'Norway' || datum.Country === 'Sweden' || datum.Country === 'Other North-West Europe' ? 'North-West Europe' :datum.Country === 'Italy' || datum.Country ==='Spain' || datum.Country === 'Poland' || datum.Country === 'Russian Federation' || datum.Country === 'Other Southern and Eastern Europe' ? 'Southern and Eastern Europe' : datum.Country === 'Iran' || datum.Country === 'Israel' || datum.Country === 'Saudi Arabia' || datum.Country === 'United Arab Emirates' || datum.Country === 'Other North Africa and the Middle East' ? 'North Africa and the Middle East' : datum.Country === 'Cambodia' || datum.Country === 'Thailand' || datum.Country === 'Vietnam' || datum.Country === 'Indonesia' || datum.Country === 'Malaysia' || datum.Country === 'Philippines' || datum.Country === 'Singapore' || datum.Country === 'Other South-East Asia' ? 'South-East Asia' : datum.Country === 'China' || datum.Country === 'Hong Kong' || datum.Country === 'Taiwan' || datum.Country === 'Japan' || datum.Country === 'South Korea' || datum.Country === 'Other North-East Asia' ? 'North-East Asia' : datum.Country === 'Bangladesh' || datum.Country === 'India' || datum.Country === 'Nepal' || datum.Country === 'Pakistan' || datum.Country === 'Sri Lanka' || datum.Country === 'Other Southern and Central Asia' ? 'Southern and Central Asia' : datum.Country === 'Canada' || datum.Country === 'USA' || datum.Country === 'Argentina' || datum.Country === 'Brazil' || datum.Country === 'Chile' || datum.Country === 'Colombia' || datum.Country === 'Mexico' || datum.Country === 'Other Americas' ? 'Americas' : 'Sub-Saharan Africa'  ",
             "as": "Region"
           }
           
           ,
           {
             "filter":"datum.Region === Continent_selection"
+          },
+          {
+            "filter":"datum.Year != 2024"
           }
+
     ],
+    "title":"Number of Visitors coming From Country of Residence",
     "mark": {
       "type": "circle",
-      "opacity": 0.8,
+      "opacity": 0.5,
       "stroke": "black",
       "strokeWidth": 1
     },
@@ -123,23 +128,26 @@
       "x": {
         "field": "Year",
         "type": "ordinal",
-        "axis": {"grid": false}
+        "axis": {"grid": false,"labelAngle":0}
+
       },
-      "y": {"field": "Country", "type": "nominal", "axis": {"title": ""},"sort": {
+      "y": {"field": "Country", "type": "nominal", "axis": {"title": "", "labelExpr": "datum.value == 'Other Oceania and Antarctica' || datum.value == 'Other North-West Europe' || datum.value == 'Other Southern and Eastern Europe'  || datum.value == 'Other North Africa and the Middle East' || datum.value == 'Other South-East Asia' || datum.value == 'Other North-East Asia' || datum.value == 'Other Southern and Central Asia' || datum.value == 'Other Americas' || datum.value == 'Other Sub-Saharan Africa'? 'Other' : datum.value == 'United Arab Emirates' ? 'UAE' : datum.value"
+    },"sort": {
         "field": "Country",
         "order" :"ascending"
       }},
       "size": {
         "field": "Visitors",
         "type": "quantitative",
-        "title": "Visitors",
+        "title": "Number of Visitors Coming",
         "legend": {"clipHeight": 30},
         "scale": {"rangeMax": 5000}
       },
       "tooltip": [
-        {"field": "Country", "type": "nominal"},
-        {"field": "Visitors", "type": "quantitative"},
-        {"field": "Region", "type": "nominal"}
+        {"field": "Country", "type": "nominal","title":"Country:"},
+        {"field": "Visitors", "type": "quantitative","title":"Number of Visitors to Australia from this Country:"},
+        {"field": "Region", "type": "nominal","title":"Region of Country:"},
+        {"field": "Year", "type": "ordinal","title":"Year:"}
       ]    }
   }
   

@@ -1,70 +1,12 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "width": 640,
-    "height": 450,
+    "height": 400,
     "title": "Inbound International Airline Arrivals within Australia",
-    "params":[
-      { 
-        "name"  :  "Year_adjust"  , 
-        "value"  :  2023  , 
-        "bind"  : { 
-        "input"  :  "range"  , 
-        "min"  :  2013  , 
-        "max"  :  2023 , 
-        "step"  :  1  , 
-        "name"  :  "Year: " 
-        } 
-      },
-      {
-        "name": "zoom_level",
-        "value": 600,
-        "bind": {
-        "input": "range",
-        "min": 600,
-        "max": 1500,
-        "step": 10,
-        "name": "Zoom: "
-        }
-        },
-        {
-          "name": "center_to",
-          "value": [134,-28.3],
-          "bind": {
-          "input": "select",
-          "options": [
-          [134,-28.3],
-          [133,-19],
-          [144.0880,-22.5750],
-          [147,-33.5],
-          [146.5,-42],
-          [144,-37],
-          [118.50,-26.6],
-          [149.01,-35.4735]
-          ],
-          "labels": ["Default","NT", "QLD", "NSW","TAS","VIC","WA","ACT"],
-          "name": "Select state to zoom into: "
-          }
-        }         
-    ],
-    "projection": {"type": "mercator","scale": {"expr": "zoom_level"},"center": {"expr": "center_to"}},
-
-    "layer": [
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/ne_50m.json",
-          "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
-        },
-        "mark": {"type": "geoshape", "fill": "beige", "stroke": "black"}
-      },
-      {
-        "data": {
+    "data": {
           "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/Aircraft_Data.csv"
         },
- 
         "transform": [
-          {
-            "filter" : "toNumber(datum.Year) == Year_adjust"
-          },
           {
             "fold": ["Adelaide_SA", "Brisbane_QLD", "Cairns_QLD", "Canberra_ACT", "Darwin_NT", "Gold_QLD", "Hobart_TAS", "Melbourne_VIC", "Newcastle_NSW", "Perth_WA", "Port_WA", "Sunshine_QLD", "Sydney_NSW", "Toowoomba_QLD", "Townsville_QLD"],
             "as": ["Airport", "Arrivals"]
@@ -109,6 +51,68 @@
           }
         ],
       
+ 
+    "params":[
+      { 
+        "name"  :  "Year_adjust"  , 
+        "value"  :  2023  , 
+        "bind"  : { 
+        "input"  :  "range"  , 
+        "min"  :  2013  , 
+        "max"  :  2023 , 
+        "step"  :  1  , 
+        "name"  :  "Year: " 
+        } 
+      },
+      {
+        "name": "zoom_level",
+        "value": 600,
+        "bind": {
+        "input": "range",
+        "min": 600,
+        "max": 1500,
+        "step": 10,
+        "name": "Zoom: "
+        }
+        },
+        {
+          "name": "center_to",
+          "value": [134,-28.3],
+          "bind": {
+          "input": "select",
+          "options": [
+          [134,-28.3],
+          [133,-19],
+          [144.0880,-22.5750],
+          [147,-33.5],
+          [146.5,-42],
+          [144,-37],
+          [118.50,-26.6],
+          [149.01,-35.4735]
+          ],
+          "labels": ["Australia","NT", "QLD", "NSW","TAS","VIC","WA","ACT"],
+          "name": "Select state to zoom into: "
+          }
+        }         
+    ],
+    "projection": {"type": "mercator","scale": {"expr": "zoom_level"},"center": {"expr": "center_to"}},
+
+    "layer": [
+      {
+        "data": {
+          "url": "https://raw.githubusercontent.com/timbeh4/3179/refs/heads/main/Data_vis_2/datasource/ne_50m.json",
+          "format": {"type": "topojson", "feature": "ne_50m_admin_1_states_provinces"}
+        },
+        "mark": {"type": "geoshape", "fill": "beige", "stroke": "black"}
+      },
+      {
+        
+        "transform": [
+          {
+            "filter" : "toNumber(datum.Year) == Year_adjust"
+          }
+        ],
+      
         "mark": {"type": "circle"},
         "encoding": {
           "longitude": {"field":"lon", "type": "quantitative"},
@@ -118,7 +122,7 @@
             "field": "Arrivals",
             "type": "quantitative",
             "title": "Aircraft Inbound Arrivals",
-            "scale":{"type":"threshold","domain": [200,2000,20000,40000],
+            "scale":{"type":"threshold","domain": [200,1000,5000,40000],
                     "range": [200,700,1200,1700,3000]}           
             },
             "opacity": {
@@ -135,10 +139,32 @@
                 "scale": {"range": ["#00008B", "#ff7f0e", "#006400", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f"]}
               },
               "tooltip": [
-          {"field": "City", "type": "nominal"},
-          {"field": "Arrivals", "type": "quantitative", "title":"Overseas Arrivals"}
+          {"field": "City", "type": "nominal", "title": "Airport:"},
+          {"field": "Arrivals", "type": "quantitative", "title":"Overseas Aircraft Arrivals:"},
+          {"field": "Year","type": "ordinal", "title":"Year:"}
         ]
         }
+      },{ 
+        "transform": [
+          {
+            "filter" : "datum.City == 'Perth' || datum.City == 'Darwin' ||datum.City == 'Brisbane' || datum.City == 'Sydney' || datum.City == 'Adelaide' || datum.City == 'Melbourne'"
+          }
+        ],
+        "mark": {"type": "text","align":"right","dx":-24},
+      
+        "encoding": {
+          
+          "text" : {"field":"City","type": "nominal"},
+          "longitude": {"field":"lon", "type": "quantitative"},
+          "latitude": {"field":"lat","type": "quantitative"},
+              "tooltip": [
+          {"field": "City", "type": "nominal", "title":"Airport:"},
+          {"field": "Arrivals", "type": "quantitative", "title":"Overseas Aircaft Arrivals:"},
+          {"field": "Year","type": "ordinal", "title":"Year:"}
+
+        ]
+        }
+
       }
     ]
   }
