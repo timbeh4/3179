@@ -1,157 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Data Visualisation 2</title>
     <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
-    <style>
-        body {
-            background-color: #f5f5dc; /* Dark brown background */
-        }
-        .container {
-            max-width: 1180px; /* Adjust as needed for the desired width */
-            margin: 0 auto; /* Center the container */
-            padding: 20px; /* Add some padding */
-            background-color: rgba(147, 100, 13, 0.644); /* Dark blue background */
-            border-radius: 8px; /* Rounded corners for boxes */
-
-        }
-        .title {
-            text-align: center; /* Center the title text */
-            margin-bottom: 0px; /* Space below the title */
-            margin-top: 0px;
-            font-size: 50px; /* Title font size */
-        }
-        .box {
-            padding: 10px;
-            min-height: 40px; /* Minimum height for visualizations */
-            margin-bottom: 5px; /* Space between boxes */
-            display: flex; /* Use flexbox for layout */
-        }
-        .visualization {
-            flex: 1; 
-        }
-        .text-content {
-            background-color: #f6f6e7; /* Background color for text area */
-            padding-left: 20px; /* Padding for text area */
-            flex: 1; /* Allow text area to take equal space */
-        }
-        .sub-title {
-          margin-bottom: 15px; /* Space below the title */
-          margin-top: 40px;
-          font-size: 30px; /* Title font size */
-          margin-left: 5px;
-        }
-        .box-vertical{
-          background-color: #f6f6e7; /* Very light brown for boxes */
-          border-radius: 8px; /* Rounded corners for boxes */
-          flex-direction: column;
-          margin-bottom: 0px;
-          }
-        .normal_text{
-          margin-top: 0px;
-          font-size: 20px;
-          margin-bottom: 10px ;
-        }
-        .metadata{
-            margin: 0px;
-            padding: 0px;
-            text-align: center;
-        }
-        .instructions{
-            font-size: 18px;       
-            color: rgb(128, 128, 128);   
-        }
-        #arrival{
-            color: #1f77b4;
-        }
-        #departure{
-            color: #d62728;
-        }
-        #heat{
-            margin-top: 110px;
-        }
-        #bubble{
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
-
+    <link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+  </head>
+  <body>
     <div class="container">
-        <h1 class="title">International Movement and Tourism in Australia</h1> <!-- Title added here -->
-        <h4 class="metadata"> Author: Timothy Beh Date | Date: 15/10/2024 | Data Source: <a href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/aug-2024">Australian Bureau of Statistics</a> and <a href="https://www.bitre.gov.au/publications/ongoing/airport_traffic_data#:~:text=These%20files%20contain%20monthly%20and%20annual"> Bureau of Infrastructure and Transport Research Economics</a> </h4>
-        <!-- Box 1 -->
+      <h1 class="title">International Movement and Tourism in Australia</h1>
+      <h4 class="metadata">
+        Author: Timothy Beh | Date: 15/10/2024 | Data Source:
+        <a
+          href="https://www.abs.gov.au/statistics/industry/tourism-and-transport/overseas-arrivals-and-departures-australia/aug-2024"
+          >Australian Bureau of Statistics</a
+        >
+        and
+        <a
+          href="https://www.bitre.gov.au/publications/ongoing/airport_traffic_data#:~:text=These%20files%20contain%20monthly%20and%20annual"
+        >
+          Bureau of Infrastructure and Transport Research Economics</a
+        >
+      </h4>
 
-        <div class="box-vertical">
-          <h2 class="sub-title">International Crossings in and out of Australia</h2>
+      <div class="box-vertical">
+        <h2 class="sub-title">
+          International Crossings in and out of Australia
+        </h2>
         <div class="box">
-            <div class="visualization" id="vis1"></div> <!-- Embed Vega-Lite visualization here -->
-            <div class="text-content">
-                <h4 class="normal_text">Have aircraft arrival patterns changed over time?</h4>
-                <p class="normal_text">Without a doubt, the majority of airline arrivals happen at the airports of the capital cities of each state. Sydney and Melbourne airport have always been the main hub for international aicraft arrivals. These two airports have always received between 5000 and 40000 arrivals throughout the years of 2013 and 2023. Other airports such as Port Hedland in SA or Newcastle in NSW, 
-                    record infrequent overseas airline arrivals over the years. Being in smaller cities, Port Hedland recorded 51 aircraft arrivals while Newcastle recorded 37 in 2019. <span class="instructions">(use slider to filter or to zoom into different states with selection dropdown on the left)</span>
-         </p>
-            </div>
+          <div class="visualization" id="vis1"></div>
+          <div class="text-content">
+            <h4 class="normal_text">
+              Have airline arrival patterns changed over time?
+            </h4>
+            <p class="normal_text">
+              Without a doubt, the majority of airline arrivals happen at the
+              capital city airports of each state. Sydney and Melbourne airport
+              have always been the main hub for international aicraft arrivals.
+              These two airports have always received between 5000 and 40000
+              arrivals throughout the years of 2013 and 2023. Other airports
+              such as Port Hedland in SA or Newcastle in NSW, have recorded
+              infrequent overseas airline arrivals over the years. Being in
+              smaller cities, Port Hedland recorded 51 aircraft arrivals while
+              Newcastle recorded 37 in 2019.
+              <span class="instructions"
+                >(use slider to filter year or to zoom into different states
+                with selection dropdown on the left)</span
+              >
+            </p>
+          </div>
         </div>
         <div class="box">
-          <div class="visualization" id="vis3"></div> <!-- Embed Vega-Lite visualization here -->
+          <div class="visualization" id="vis3"></div>
           <div class="text-content">
-              <h4 class="normal_text">Have people movement in terms of <span id="arrival">arrivals</span> and <span id="departure">departures</span> changed over time?</h4>
-              <p class="normal_text">
-                  Compared to other states, NSW and VIC have always had the most total arrivals and departures. NT and TAS have historically recorded the least number of total arrivals and departures with NT receiving 120,420 arrivals and TAS receiving 184,260 arrivals in 2023. While majority of time, people arriving into Australia exceed the number of 
-                  people departing <span class="instructions">(select legend to highlight)</span>, in 2021, the number of departures surpassed the number of arrivals. All states except TAS and NT had more departures than arrivals in 2021. <span class="instructions">(use the Information selection on the left to toggle between data on different states or Australia in total or use slider to filter year)</span>
-                </p>
+            <h4 class="normal_text">
+              Have people movement in terms of
+              <span id="arrival">arrivals</span> and
+              <span id="departure">departures</span> changed over time?
+            </h4>
+            <p class="normal_text">
+              Compared to other states, NSW and VIC have always had the most
+              total arrivals and departures. NT and TAS have historically
+              recorded the least number of total arrivals and departures with NT
+              receiving 120,420 arrivals and TAS receiving 184,260 arrivals in
+              2023. While majority of time, people arriving into Australia
+              exceed the number of people departing
+              <span class="instructions">(select legend to highlight)</span>, in
+              2021, the number of departures surpassed the number of arrivals.
+              All states except TAS and NT had more departures than arrivals in
+              2021.
+              <span class="instructions"
+                >(use the Information selection on the left to toggle between
+                data on different states or Australia in total or use slider to
+                filter year)</span
+              >
+            </p>
           </div>
-      </div>
+        </div>
       </div>
 
-        <!-- Box 2 -->
-
-        <div class="box-vertical">
-        <!-- Box 3 -->
+      <div class="box-vertical">
         <h2 class="sub-title">Tourism</h2>
         <div class="box">
-            <div class="visualization" id="vis5"></div> <!-- Embed Vega-Lite visualization here -->
-            <div class="text-content">
-                <h4 class="normal_text">What's the main reason for visiting and how long do tourists stay?</h4>
-                <p class="normal_text">In general, the main reason for visiting Australia includes for Holiday and for visiting friends/relatives. In 2019, 4,475,720 visitors came to Australia for business while 2,845,920 came for visitng family/friends. Another popular reason for 
-                    visiting Australia include for business or for education. In 2023 445,420 people came for business while 415,420 people came for education. Evident by the drastic change in color, visiting for any reason dropped by a large amount in 2020 and 2021.
-                </p>
-                <p class="normal_text" id="heat">The most popular intended length of stay is under 1 week, 1 and under 2 weeks or 2 weeks and under 1 month. In 2019 2,561,590 visitors came to visit Australia for under 1 week. Similar to the heat map above, the number of visits regardles of any inteded length of stay decreased drastically in 2020 and 2021. 
-                    In 2023, the most popular intended length of stay, is still 1 week, 1 and under 2 weeks or 2 weeks and under 1 month. In 2023, 1,635,470 visitors came for under 1 week <span class="instructions">(Select a box to highlight)</span>
-                </p>
-
-            </div>
+          <div class="visualization" id="vis5"></div>
+          <div class="text-content">
+            <h4 class="normal_text">
+              What's the main reason for visiting and how long do tourists stay?
+            </h4>
+            <p class="normal_text">
+              In general, the main reason for visiting Australia includes, for
+              Holiday and for visiting friends/relatives. In 2019, 4,475,720
+              visitors came to Australia for Holiday while 2,845,920 came for
+              visitng family/friends. Another popular reason for visiting
+              Australia include, for business or for education. In 2023, 445,420
+              people came for business while 415,420 people came for education.
+              Evident by the drastic change in color, visiting for any reason
+              dropped by a large amount in 2020 and 2021.
+            </p>
+            <p class="normal_text" id="heat">
+              The most popular intended length of stay is under 1 week, 1 and
+              under 2 weeks or 2 weeks and under 1 month. In 2019 2,561,590
+              visitors came to visit Australia for under 1 week. Similar to the
+              heat map above, the number of visits regardless of any intended
+              length of stay decreased drastically in 2020 and 2021. In 2023,
+              the most popular intended length of stay, was still 1 week, 1 and
+              under 2 weeks or 2 weeks and under 1 month. In 2023, 1,635,470
+              visitors came for under 1 week
+              <span class="instructions">(Select a box to highlight)</span>
+            </p>
+          </div>
         </div>
-        <!-- Box 4 -->
         <div class="box">
-            <div class="visualization" id="vis2"></div> <!-- Embed Vega-Lite visualization here -->
-            <div class="text-content">
-                <h4 class="normal_text">Where do Australian Visitors come from?</h4>
-                <p class="normal_text">Within Oceania, the majority of visitors to Australia come from New Zealand. In 2023, 1,272,140 tourists travelled from New Zealand. For North-West Europe and Southern/Eastern Europe, the UK and Italy are the most common country of residences for Australian visitors.</p>
-                <p class="normal_text" id="bubble">Within Asia, many visitors to Australia come from India and China, with 395,560 and 535,790 tourists arriving to Australia from these two countries in 2023. After a decrease in worldwide travel in 2020, an increase in visitors from the USA was recorded at 659,740 visits for 2023. USA leads the Americas in terms of number of visitors to Australia. <span class="instructions">(Select world region in the dropdown box on the left)</span>
-                </p>
-            </div>
+          <div class="visualization" id="vis2"></div>
+          <div class="text-content">
+            <h4 class="normal_text">Where do Australian Visitors come from?</h4>
+            <p class="normal_text">
+              Within Oceania, the majority of visitors to Australia come from
+              New Zealand. In 2023, 1,272,140 tourists travelled from New
+              Zealand. For North-West Europe and Southern/Eastern Europe, the UK
+              and Italy are the most common country of residences for Australian
+              visitors.
+            </p>
+            <p class="normal_text" id="bubble">
+              Within Asia, many visitors to Australia come from India and China,
+              with 395,560 and 535,790 tourists arriving to Australia from these
+              two countries in 2023. After a decrease in worldwide travel in
+              2020, an increase in visitors from the USA was recorded at 659,740
+              visits for 2023. USA leads the Americas in terms of number of
+              visitors to Australia.
+              <span class="instructions"
+                >(Select world region in the dropdown box on the left)</span
+              >
+            </p>
+          </div>
         </div>
       </div>
 
       <div class="box-vertical">
         <h2 class="sub-title">Migration</h2>
         <div class="box">
-          <div class="visualization" id="vis4"></div> <!-- Embed Vega-Lite visualization here -->
+          <div class="visualization" id="vis4"></div>
           <div class="text-content">
-              <h4 class="normal_text">How have migration patterns changed over time and what is the distribution in terms of visa and citizenship groups?</h4>
-              <p class="normal_text">While migration arrival patterns have remained fairly constant from 2013 to 2020, the period
-                between 2020 and 2022 sees a drastic decrease in migrant arrivals into Australia. However, there has been a steady increase since 2021. Looking at
-                the total number of migrants from 2013 to 2023 and its split into visa/citizenship groups, the majority of migrants hold a temporary visa. While most migrants hold a temporary 
-                visa, in the year 2021, the majority of migrant arrivals were Australian citizens. This shows the returning of Australian citizens during the lockdown period. <span class="instructions">(Please use your mouse to click and drag a time interval on the area graph to see the split between visa/citzen groups for migrant arrivals (excludes unknown visas))</span>
-              </p>
+            <h4 class="normal_text">
+              How have migration patterns changed over time and what is the
+              distribution in terms of visa and citizenship groups?
+            </h4>
+            <p class="normal_text">
+              While migration arrival patterns have remained fairly constant
+              from 2013 to 2020, the period between 2020 and 2022 saw a drastic
+              decrease in migrant arrivals into Australia. However, there has
+              been a steady increase since 2021. Looking at the total number of
+              migrants from 2013 to 2023 and its split into visa/citizenship
+              groups, the majority of migrants hold a temporary visa. While most
+              migrants hold a temporary visa, in the year 2021, the majority of
+              migrant arrivals were Australian citizens. This shows the
+              returning of Australian citizens during the lockdown period.
+              <span class="instructions"
+                >(Please use your mouse to click and drag a time interval on the
+                area graph to see the split between visa/citzen groups for
+                migrant arrivals (excludes unknown visas))</span
+              >
+            </p>
           </div>
-      </div>
+        </div>
       </div>
     </div>
     <script type="text/javascript" src="js/aircraft_map.js"></script>
@@ -159,5 +173,5 @@
     <script type="text/javascript" src="js/bubble_chart.js"></script>
     <script type="text/javascript" src="js/groups_filter.js"></script>
     <script type="text/javascript" src="js/reason_combine.js"></script>
-</body>
+  </body>
 </html>

@@ -1,0 +1,69 @@
+body {
+    background-color: #f5f5dc; 
+}
+.container {
+    max-width: 1180px; 
+    margin: 0 auto; /*used to center the container */
+    padding: 20px; 
+    background-color: rgba(147, 100, 13, 0.644); 
+    border-radius: 8px; 
+
+}
+.title {
+    text-align: center; 
+    margin-bottom: 0px; 
+    margin-top: 0px;
+    font-size: 50px; 
+}
+.box {
+    padding: 10px;
+    min-height: 40px; 
+    margin-bottom: 5px;
+    display: flex;
+}
+.visualization {
+    flex: 1; 
+}
+.text-content {
+    background-color: #f6f6e7; 
+    padding-left: 20px; /* space between text and viz */
+    flex: 1; 
+}
+.sub-title {
+  margin-bottom: 15px; 
+  margin-top: 40px;
+  font-size: 30px; 
+  margin-left: 5px;
+}
+.box-vertical{
+  background-color: #f6f6e7; 
+  border-radius: 8px; 
+  flex-direction: column;
+  margin-bottom: 0px;
+  }
+.normal_text{
+  margin-top: 0px;
+  font-size: 20px;
+  margin-bottom: 10px ;
+}
+.metadata{
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+.instructions{
+    font-size: 18px;       
+    color: rgb(128, 128, 128);   
+}
+#arrival{
+    color: #1f77b4;
+}
+#departure{
+    color: #d62728;
+}
+#heat{
+    margin-top: 110px;
+}
+#bubble{
+    margin-top: 10px;
+}
